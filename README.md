@@ -13,4 +13,4 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 
 ## Demo version
-Open [http://localhost:3000](http://localhost:3000) with your browser to see demo version in Vercel.
+Open [DEMO](https://challenger-project-nzze9q9li-sejidjorge.vercel.app/) with your browser to see demo version in Vercel.
