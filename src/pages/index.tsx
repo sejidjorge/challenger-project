@@ -71,6 +71,8 @@ export default function Home() {
         ],
       };
       const { data } = await axios.post('/api/amount', body);
+      console.log(body);
+      
       setResult(data);
       setStage('RESULT');
     } catch (error: any) {

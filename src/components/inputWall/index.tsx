@@ -9,22 +9,22 @@ export default function InputWall({ wall, setWall, title }: inputWallProps) {
       <Input
         label="Width"
         value={wall.width}
-        setValue={(value) => setWall({ ...wall, width: value })}
+        setValue={(value) => setWall({ ...wall, width: Number(value) })}
       />
       <Input
         label="Height"
         value={wall.height}
-        setValue={(value) => setWall({ ...wall, height: value })}
+        setValue={(value) => setWall({ ...wall, height: Number(value) })}
       />
       <Input
         label="Doors"
         value={wall.doors}
-        setValue={(value) => setWall({ ...wall, doors: value })}
+        setValue={(value) => setWall({ ...wall, doors: Number(value) })}
       />
       <Input
         label="Windows"
         value={wall.windows}
-        setValue={(value) => setWall({ ...wall, windows: value })}
+        setValue={(value) => setWall({ ...wall, windows: Number(value) })}
       />
     </>
   );

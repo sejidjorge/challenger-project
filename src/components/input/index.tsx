@@ -5,7 +5,7 @@ const Input = ({ label, value, setValue }: InputProps) => {
   const validate = /[^0-9.,]+/g;
 
   function handleChange(value: string) {
-    setValue(value.replace(validate, ''));
+    setValue(Number(value.replace(validate, '')));
   }
 
   return (
