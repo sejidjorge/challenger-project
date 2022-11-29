@@ -14,13 +14,15 @@ export default function amount(
   const {
     body: { walls },
   } = req;
-  walls.map(({ wall }: wallTypes) => {
-    if (!wall.width || !wall.height) {
-      return res.status(400).json({ error: 'invalid body' });
-    } else {
-      const area = calculateTotalPaint(walls);
-      const result = calculatePaintCans(area);
-      return res.status(200).json(result);
-    }
-  });
+
+  const validate = (walls: wallTypes[]) =>
+    walls.every(({ wall }: wallTypes) => !wall.width || !wall.height);
+
+  if (validate(walls)) {
+    return res.status(400).json({ error: 'invalid body' });
+  } else {
+    const area = calculateTotalPaint(walls);
+    const result = calculatePaintCans(area);
+    return res.status(200).json(result);
+  }
 }
