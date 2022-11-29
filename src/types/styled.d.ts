@@ -9,6 +9,9 @@ declare module 'styled-components' {
         secondary: string;
       };
       buttonActive: string,
+      warning: string,
+      error: string,
+      sucess: string,
     };
   }
 }
