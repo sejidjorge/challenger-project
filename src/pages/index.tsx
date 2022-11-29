@@ -21,7 +21,12 @@ export default function Home() {
   const [wallTwo, setWallTwo] = useState<wall>({} as wall);
   const [wallThree, setWallThree] = useState<wall>({} as wall);
   const [wallFour, setWallFour] = useState<wall>({} as wall);
-  const [result, setResult] = useState<returnTypes>();
+  const [result, setResult] = useState<returnTypes>({
+    majorPaintCanQuantity: 0,
+    mediumPaintCanQuantity: 0,
+    minorPaintCanQuantity: 0,
+    smallPaintCanQuantity: 0,
+  });
 
   const wallsConfig = [
     {
@@ -95,11 +100,7 @@ export default function Home() {
                 </CardBody>
               ))}
             </ContainerCards>
-            <Button
-              onClick={calcPaintNeed}
-            >
-              Submit
-            </Button>
+            <Button onClick={calcPaintNeed}>Submit</Button>
           </FormStyled>
         );
       case 'LOAD':
