@@ -1,21 +1,15 @@
-export interface doorTypes {
-  door: {
-    width: number;
-    heigth: number;
-  };
-}
-export interface windowTypes {
-  window: {
-    width: number;
-    heigth: number;
-  };
-}
+export const measures = {
+  windowHeight: 1.2,
+  windowWidth: 2,
+  doorHeight: 1.9,
+  doorWidth: 0.8,
+};
 
 export interface wallTypes {
   wall: {
     width: number;
-    heigth: number;
-    windows: windowTypes[];
-    doors: doorTypes[];
+    height: number;
+    windows: number;
+    doors: number;
   };
 }
