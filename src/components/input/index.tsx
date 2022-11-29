@@ -2,7 +2,7 @@ import { InputProps } from '../../types/inputTypes';
 import { Container, InputContainer, InputLabel, InputStyled } from './styles';
 
 const Input = ({ label, value, setValue }: InputProps) => {
-  const validate = /^[aA-zZ]/g;
+  const validate = /[^0-9.,]+/g;
 
   function handleChange(value: string) {
     setValue(value.replace(validate, ''));
