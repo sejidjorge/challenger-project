@@ -22,6 +22,7 @@ const Input = ({ label, value, setValue }: InputProps) => {
           <InputStyled
             id={label}
             name={label}
+            required
             onChange={(e) => handleChange(Number(e.target.value))}
             value={value}
           />

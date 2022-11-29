@@ -6,5 +6,7 @@ export const CardBody = styled.div`
   padding: 1rem;
   background-color: #161b22;
   border-radius: 0.3125rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 `;
-

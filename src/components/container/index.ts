@@ -11,6 +11,7 @@ export const ContainerContent = styled.div`
 `;
 
 export const ContainerCards = styled.div`
+  margin: 1rem 0;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   grid-template-rows: repeat(2, 1fr);

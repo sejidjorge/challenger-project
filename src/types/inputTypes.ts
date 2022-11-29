@@ -16,6 +16,7 @@ export interface InputProps {
 }
 
 export interface inputWallProps {
+  title: string;
   wall: wall;
   setWall: (
     value: wall

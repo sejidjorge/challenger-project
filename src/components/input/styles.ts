@@ -5,7 +5,8 @@ interface LabelProps {
 }
 
 export const Container = styled.div`
-  height: 5rem;
+  height: fit-content;
+  padding: 0.5rem 0;
   display: flex;
   align-items: center;
 `;

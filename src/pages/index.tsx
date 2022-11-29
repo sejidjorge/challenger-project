@@ -11,6 +11,30 @@ export default function Home() {
   const [wallTwo, setWallTwo] = useState<wall>({} as wall);
   const [wallThree, setWallThree] = useState<wall>({} as wall);
   const [wallFour, setWallFour] = useState<wall>({} as wall);
+
+  const wallsConfig = [
+    {
+      title: 'Wall 01',
+      value: wallOne,
+      setValue: setWallOne,
+    },
+    {
+      title: 'Wall 02',
+      value: wallTwo,
+      setValue: setWallTwo,
+    },
+    {
+      title: 'Wall 03',
+      value: wallThree,
+      setValue: setWallThree,
+    },
+    {
+      title: 'Wall 04',
+      value: wallFour,
+      setValue: setWallFour,
+    },
+  ];
+
   return (
     <div>
       <Head>
@@ -20,21 +44,15 @@ export default function Home() {
       </Head>
       <ContainerContent>
         <Title>Paint Calculator</Title>
-
-        <ContainerCards>
-          <CardBody>
-            <InputWall wall={wallOne} setWall={setWallOne} />
-          </CardBody>
-          <CardBody>
-            <InputWall wall={wallTwo} setWall={setWallTwo} />
-          </CardBody>
-          <CardBody>
-            <InputWall wall={wallThree} setWall={setWallThree} />
-          </CardBody>
-          <CardBody>
-            <InputWall wall={wallFour} setWall={setWallFour} />
-          </CardBody>
-        </ContainerCards>
+        <form>
+          <ContainerCards>
+            {wallsConfig.map(({ title, value, setValue }) => (
+              <CardBody key={title}>
+                <InputWall title={title} wall={value} setWall={setValue} />
+              </CardBody>
+            ))}
+          </ContainerCards>
+        </form>
       </ContainerContent>
     </div>
   );
