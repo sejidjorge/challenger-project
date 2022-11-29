@@ -16,12 +16,11 @@ export default function amount(
   } = req;
   walls.map(({ wall }: wallTypes) => {
     if (!wall.width || !wall.height) {
-      res.status(400).json({ error: 'invalid body' });
+      return res.status(400).json({ error: 'invalid body' });
     } else {
       const area = calculateTotalPaint(walls);
       const result = calculatePaintCans(area);
-      res.status(200).json(result);
+      return res.status(200).json(result);
     }
   });
-  return { props: {} };
 }
