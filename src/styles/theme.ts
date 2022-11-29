@@ -5,8 +5,8 @@ export const defaultTheme: DefaultTheme = {
   colors: {
     background: '#0D1117',
     text: {
-      primary: '#F1F1F1',
-      secondary: '#95a0c1',
+      light: '#F1F1F1',
+      dark: '#0D1117',
     },
     buttonActive: '#58A6FF',
     warning: '#FCD34D',

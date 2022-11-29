@@ -18,3 +18,9 @@ export const ContainerCards = styled.div`
   grid-column-gap: 1rem;
   grid-row-gap: 1rem;
 `;
+
+export const FormStyled = styled.form`
+  display: flex;
+  align-items: center;
+  flex-direction: column
+`;

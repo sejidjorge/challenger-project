@@ -1,7 +1,12 @@
 import Head from 'next/head';
 import { useState } from 'react';
+import { Button } from '../components/button';
 import { CardBody } from '../components/card';
-import { ContainerCards, ContainerContent } from '../components/container';
+import {
+  ContainerCards,
+  ContainerContent,
+  FormStyled,
+} from '../components/container';
 import InputWall from '../components/inputWall';
 import { Title } from '../components/typograph';
 import { wall } from '../types/inputTypes';
@@ -44,7 +49,7 @@ export default function Home() {
       </Head>
       <ContainerContent>
         <Title>Paint Calculator</Title>
-        <form>
+        <FormStyled>
           <ContainerCards>
             {wallsConfig.map(({ title, value, setValue }) => (
               <CardBody key={title}>
@@ -52,7 +57,8 @@ export default function Home() {
               </CardBody>
             ))}
           </ContainerCards>
-        </form>
+          <Button>Submit</Button>
+        </FormStyled>
       </ContainerContent>
     </div>
   );

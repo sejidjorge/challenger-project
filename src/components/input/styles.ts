@@ -21,14 +21,14 @@ export const InputLabel = styled.label<LabelProps>`
   top: ${({ isEmpty }) => (isEmpty ? '0px' : '-12px')};
   left: 0px;
   font-size: ${({ isEmpty }) => (isEmpty ? '1rem' : '0.75rem')};
-  color: ${({ theme }) => theme.colors.text.primary};
+  color: ${({ theme }) => theme.colors.text.light};
   pointer-events: none;
   transition: all 0.5s ease-in-out;
 `;
 
 export const InputStyled = styled.input`
   border: none;
-  border-bottom: 1px solid ${({ theme }) => theme.colors.text.primary};
+  border-bottom: 1px solid ${({ theme }) => theme.colors.text.light};
   background: transparent;
   width: 100%;
   ::-webkit-inner-spin-button,
@@ -39,14 +39,14 @@ export const InputStyled = styled.input`
   min-width: 18rem;
   padding: 8px 0 5px 0;
   font-size: 16px;
-  color: ${({ theme }) => theme.colors.text.primary};
+  color: ${({ theme }) => theme.colors.text.light};
   &:focus {
     outline: none;
     border: none;
-    border-bottom: 1px solid ${({ theme }) => theme.colors.text.primary};
+    border-bottom: 1px solid ${({ theme }) => theme.colors.text.light};
     ~ ${InputLabel} {
       top: -12px;
-      color: ${({ theme }) => theme.colors.text.primary};
+      color: ${({ theme }) => theme.colors.text.light};
       font-size: 0.75rem;
     }
   }
