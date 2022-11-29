@@ -10,7 +10,7 @@ import {
 } from '../components/container';
 import InputWall from '../components/inputWall';
 import { LoadingCircle } from '../components/loading';
-import { Label, SubTitle, Title } from '../components/typograph';
+import { Label, Title } from '../components/typograph';
 import { wall } from '../types/inputTypes';
 import { returnTypes } from '../types/returnTypes';
 
@@ -20,7 +20,7 @@ export default function Home() {
   const [wallTwo, setWallTwo] = useState<wall>({} as wall);
   const [wallThree, setWallThree] = useState<wall>({} as wall);
   const [wallFour, setWallFour] = useState<wall>({} as wall);
-  const [result, setResult] = useState<returnTypes>({} as returnTypes);
+  const [result, setResult] = useState<returnTypes>();
 
   const wallsConfig = [
     {
@@ -68,7 +68,8 @@ export default function Home() {
       setResult(data);
       setStage('RESULT');
     } catch (error) {
-      console.log(error);
+      window.alert(error.message);
+      Reset();
     }
   }
 
@@ -93,7 +94,11 @@ export default function Home() {
                 </CardBody>
               ))}
             </ContainerCards>
-            <Button onClick={calcPaintNeed}>Submit</Button>
+            <Button
+              onClick={calcPaintNeed}
+            >
+              Submit
+            </Button>
           </FormStyled>
         );
       case 'LOAD':

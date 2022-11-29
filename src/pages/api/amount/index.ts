@@ -3,20 +3,24 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 import {
   calculateTotalPaint,
   calculatePaintCans,
-} from '../../../services/calcServices';
+} from '../../../utils/calcServices';
+import { returnErrorTypes, returnTypes } from '../../../types/returnTypes';
+import { wallTypes } from '../../../types/typesStructures';
 
-export default function amount(req: NextApiRequest, res: NextApiResponse<any>) {
-  
+export default function amount(
+  req: NextApiRequest,
+  res: NextApiResponse<returnTypes | returnErrorTypes>
+) {
   const {
     body: { walls },
   } = req;
-  console.log(walls);
-  
-  if (!walls || walls.length !== 4) {
-    res.status(400).json({ error: 'invalid body' });
-  } else {
-    const area = calculateTotalPaint(walls);
-    const result = calculatePaintCans(area);
-    res.status(200).json(result);
-  }
+  walls.map(({ wall }: wallTypes) => {
+    if (!wall.width || !wall.height) {
+      res.status(400).json({ error: 'invalid body' });
+    } else {
+      const area = calculateTotalPaint(walls);
+      const result = calculatePaintCans(area);
+      res.status(200).json(result);
+    }
+  });
 }

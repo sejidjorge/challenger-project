@@ -1,19 +1,12 @@
-import { useEffect, useState } from 'react';
 import { InputProps } from '../../types/inputTypes';
 import { Container, InputContainer, InputLabel, InputStyled } from './styles';
 
 const Input = ({ label, value, setValue }: InputProps) => {
-  const [inputValue, setInputValue] = useState<number>();
+  const validate = /^[aA-zZ]/g;
 
-  function handleChange(value: number) {
-    if (!isNaN(value)) {
-      setInputValue(value);
-    }
+  function handleChange(value: string) {
+    setValue(value.replace(validate, ''));
   }
-
-  useEffect(() => {
-    if (inputValue) setValue(inputValue);
-  }, [inputValue]);
 
   return (
     <>
@@ -23,7 +16,7 @@ const Input = ({ label, value, setValue }: InputProps) => {
             id={label}
             name={label}
             required
-            onChange={(e) => handleChange(Number(e.target.value))}
+            onChange={(e) => handleChange(e.target.value)}
             value={value}
           />
           <InputLabel isEmpty={!value} htmlFor={label}>

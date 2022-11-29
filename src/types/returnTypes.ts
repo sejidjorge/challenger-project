@@ -4,3 +4,7 @@ export interface returnTypes {
   minorPaintCanQuantity: number;
   smallPaintCanQuantity: number;
 }
+
+export interface returnErrorTypes {
+  error: string;
+}
