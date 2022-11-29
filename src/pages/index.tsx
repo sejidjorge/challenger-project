@@ -1,71 +1,183 @@
-import Head from 'next/head'
-import Image from 'next/image'
-import styles from '../styles/Home.module.css'
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import axios from 'axios';
+import Head from 'next/head';
+import { useState } from 'react';
+import { Button } from '../components/button';
+import { CardBody, CardBodyResult, CardLoad } from '../components/card';
+import {
+  ContainerCards,
+  ContainerContent,
+  FormStyled,
+} from '../components/container';
+import InputWall from '../components/inputWall';
+import { LoadingCircle } from '../components/loading';
+import { Label, Title } from '../components/typograph';
+import { wall } from '../types/inputTypes';
+import { returnTypes } from '../types/returnTypes';
 
 export default function Home() {
+  const [stage, setStage] = useState('INITIAL');
+  const [wallOne, setWallOne] = useState<wall>({} as wall);
+  const [wallTwo, setWallTwo] = useState<wall>({} as wall);
+  const [wallThree, setWallThree] = useState<wall>({} as wall);
+  const [wallFour, setWallFour] = useState<wall>({} as wall);
+  const [result, setResult] = useState<returnTypes>({
+    majorPaintCanQuantity: 0,
+    mediumPaintCanQuantity: 0,
+    minorPaintCanQuantity: 0,
+    smallPaintCanQuantity: 0,
+  });
+
+  const wallsConfig = [
+    {
+      title: 'Wall 01',
+      value: wallOne,
+      setValue: setWallOne,
+    },
+    {
+      title: 'Wall 02',
+      value: wallTwo,
+      setValue: setWallTwo,
+    },
+    {
+      title: 'Wall 03',
+      value: wallThree,
+      setValue: setWallThree,
+    },
+    {
+      title: 'Wall 04',
+      value: wallFour,
+      setValue: setWallFour,
+    },
+  ];
+
+  async function calcPaintNeed() {
+    setStage('LOAD');
+    try {
+      const body = {
+        walls: [
+          {
+            wall: wallOne,
+          },
+          {
+            wall: wallTwo,
+          },
+          {
+            wall: wallThree,
+          },
+          {
+            wall: wallFour,
+          },
+        ],
+      };
+      const { data } = await axios.post('/api/amount', body);
+      setResult(data);
+      setStage('RESULT');
+    } catch (error: any) {
+      window.alert(error.message);
+      Reset();
+    }
+  }
+
+  function Reset() {
+    setStage('INITIAL');
+    setWallOne({} as wall);
+    setWallTwo({} as wall);
+    setWallThree({} as wall);
+    setWallFour({} as wall);
+    setResult({} as returnTypes);
+  }
+
+  function ViewStages() {
+    switch (stage) {
+      case 'INITIAL':
+        return (
+          <FormStyled>
+            <ContainerCards>
+              {wallsConfig.map(({ title, value, setValue }) => (
+                <CardBody key={title}>
+                  <InputWall title={title} wall={value} setWall={setValue} />
+                </CardBody>
+              ))}
+            </ContainerCards>
+            <Button onClick={calcPaintNeed}>Submit</Button>
+          </FormStyled>
+        );
+      case 'LOAD':
+        return (
+          <CardLoad>
+            <LoadingCircle />
+          </CardLoad>
+        );
+
+      case 'RESULT':
+        return (
+          <>
+            <CardBodyResult>
+              <Label>
+                You need:
+                <br />
+                {result?.majorPaintCanQuantity > 0 && (
+                  <>
+                    <span>
+                      {result?.majorPaintCanQuantity === 1
+                        ? `${result?.majorPaintCanQuantity} can 18 liters`
+                        : `${result?.majorPaintCanQuantity} cans 18 liters `}
+                    </span>
+                    <br />
+                  </>
+                )}
+                {result?.mediumPaintCanQuantity > 0 && (
+                  <>
+                    <span>
+                      {result?.mediumPaintCanQuantity === 1
+                        ? `${result?.mediumPaintCanQuantity} can 3,6 liters`
+                        : `${result?.mediumPaintCanQuantity} cans 3,6 liter`}
+                    </span>
+                    <br />
+                  </>
+                )}
+                {result?.minorPaintCanQuantity > 0 && (
+                  <>
+                    <span>
+                      {result?.minorPaintCanQuantity === 1
+                        ? `${result?.minorPaintCanQuantity} can 2,5 liters`
+                        : `${result?.minorPaintCanQuantity} cans 2,5 liters`}
+                    </span>
+                    <br />
+                  </>
+                )}
+                {result?.smallPaintCanQuantity > 0 && (
+                  <>
+                    <span>
+                      {result?.smallPaintCanQuantity === 1
+                        ? `${result?.smallPaintCanQuantity} can 0,5 liters`
+                        : `${result?.smallPaintCanQuantity} cans 0,5 liters`}
+                    </span>
+                    <br />
+                  </>
+                )}
+              </Label>
+            </CardBodyResult>
+            <Button onClick={Reset}>Return</Button>
+          </>
+        );
+      default:
+        break;
+    }
+  }
+
   return (
-    <div className={styles.container}>
+    <div>
       <Head>
-        <title>Create Next App</title>
+        <title>Challenger Project</title>
         <meta name="description" content="Generated by create next app" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-
-      <main className={styles.main}>
-        <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
-        </h1>
-
-        <p className={styles.description}>
-          Get started by editing{' '}
-          <code className={styles.code}>pages/index.tsx</code>
-        </p>
-
-        <div className={styles.grid}>
-          <a href="https://nextjs.org/docs" className={styles.card}>
-            <h2>Documentation &rarr;</h2>
-            <p>Find in-depth information about Next.js features and API.</p>
-          </a>
-
-          <a href="https://nextjs.org/learn" className={styles.card}>
-            <h2>Learn &rarr;</h2>
-            <p>Learn about Next.js in an interactive course with quizzes!</p>
-          </a>
-
-          <a
-            href="https://github.com/vercel/next.js/tree/canary/examples"
-            className={styles.card}
-          >
-            <h2>Examples &rarr;</h2>
-            <p>Discover and deploy boilerplate example Next.js projects.</p>
-          </a>
-
-          <a
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={styles.card}
-          >
-            <h2>Deploy &rarr;</h2>
-            <p>
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
-        </div>
-      </main>
-
-      <footer className={styles.footer}>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{' '}
-          <span className={styles.logo}>
-            <Image src="/vercel.svg" alt="Vercel Logo" width={72} height={16} />
-          </span>
-        </a>
-      </footer>
+      <ContainerContent>
+        <Title>Paint Calculator</Title>
+        {ViewStages()}
+      </ContainerContent>
     </div>
-  )
+  );
 }
