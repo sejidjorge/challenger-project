@@ -1,7 +1,8 @@
+import axios from 'axios';
 import Head from 'next/head';
 import { useState } from 'react';
 import { Button } from '../components/button';
-import { CardBody, CardLoad } from '../components/card';
+import { CardBody, CardBodyResult, CardLoad } from '../components/card';
 import {
   ContainerCards,
   ContainerContent,
@@ -11,14 +12,15 @@ import InputWall from '../components/inputWall';
 import { LoadingCircle } from '../components/loading';
 import { Label, SubTitle, Title } from '../components/typograph';
 import { wall } from '../types/inputTypes';
+import { returnTypes } from '../types/returnTypes';
 
 export default function Home() {
-  const [stage, setStage] = useState('RESULT');
+  const [stage, setStage] = useState('INITIAL');
   const [wallOne, setWallOne] = useState<wall>({} as wall);
   const [wallTwo, setWallTwo] = useState<wall>({} as wall);
   const [wallThree, setWallThree] = useState<wall>({} as wall);
   const [wallFour, setWallFour] = useState<wall>({} as wall);
-  const [result, setResult] = useState();
+  const [result, setResult] = useState<returnTypes>({} as returnTypes);
 
   const wallsConfig = [
     {
@@ -43,6 +45,42 @@ export default function Home() {
     },
   ];
 
+  async function calcPaintNeed() {
+    setStage('LOAD');
+    try {
+      const body = {
+        walls: [
+          {
+            wall: wallOne,
+          },
+          {
+            wall: wallTwo,
+          },
+          {
+            wall: wallThree,
+          },
+          {
+            wall: wallFour,
+          },
+        ],
+      };
+      const { data } = await axios.post('/api/amount', body);
+      setResult(data);
+      setStage('RESULT');
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  function Reset() {
+    setStage('INITIAL');
+    setWallOne({} as wall);
+    setWallTwo({} as wall);
+    setWallThree({} as wall);
+    setWallFour({} as wall);
+    setResult({} as returnTypes);
+  }
+
   function ViewStages() {
     switch (stage) {
       case 'INITIAL':
@@ -55,7 +93,7 @@ export default function Home() {
                 </CardBody>
               ))}
             </ContainerCards>
-            <Button>Submit</Button>
+            <Button onClick={calcPaintNeed}>Submit</Button>
           </FormStyled>
         );
       case 'LOAD':
@@ -66,26 +104,59 @@ export default function Home() {
         );
 
       case 'RESULT':
-        // {
-        //   "majorPaintCanQuantity": 0,
-        //   "mediumPaintCanQuantity": 0,
-        //   "minorPaintCanQuantity": 1,
-        //   "smallPaintCanQuantity": 1
-        // }
         return (
           <>
-            <CardBody>
-              <SubTitle>Result</SubTitle>
-              {result?.majorPaintCanQuantity && (
-                <Label>
-                  {' '}
-                  <span>{result?.majorPaintCanQuantity}</span>
-                </Label>
-              )}
-            </CardBody>
-            <Button>Return</Button>
+            <CardBodyResult>
+              <Label>
+                You need:
+                <br />
+                {result?.majorPaintCanQuantity > 0 && (
+                  <>
+                    <span>
+                      {result?.majorPaintCanQuantity === 1
+                        ? `${result?.majorPaintCanQuantity} can 18 liters`
+                        : `${result?.majorPaintCanQuantity} cans 18 liters `}
+                    </span>
+                    <br />
+                  </>
+                )}
+                {result?.mediumPaintCanQuantity > 0 && (
+                  <>
+                    <span>
+                      {result?.mediumPaintCanQuantity === 1
+                        ? `${result?.mediumPaintCanQuantity} can 3,6 liters`
+                        : `${result?.mediumPaintCanQuantity} cans 3,6 liter`}
+                    </span>
+                    <br />
+                  </>
+                )}
+                {result?.minorPaintCanQuantity > 0 && (
+                  <>
+                    <span>
+                      {result?.minorPaintCanQuantity === 1
+                        ? `${result?.minorPaintCanQuantity} can 2,5 liters`
+                        : `${result?.minorPaintCanQuantity} cans 2,5 liters`}
+                    </span>
+                    <br />
+                  </>
+                )}
+                {result?.smallPaintCanQuantity > 0 && (
+                  <>
+                    <span>
+                      {result?.smallPaintCanQuantity === 1
+                        ? `${result?.smallPaintCanQuantity} can 0,5 liters`
+                        : `${result?.smallPaintCanQuantity} cans 0,5 liters`}
+                    </span>
+                    <br />
+                  </>
+                )}
+              </Label>
+            </CardBodyResult>
+            <Button onClick={Reset}>Return</Button>
           </>
         );
+      default:
+        break;
     }
   }
 

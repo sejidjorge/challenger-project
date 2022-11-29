@@ -6,9 +6,11 @@ import {
 } from '../../../services/calcServices';
 
 export default function amount(req: NextApiRequest, res: NextApiResponse<any>) {
+  
   const {
     body: { walls },
   } = req;
+  console.log(walls);
   
   if (!walls || walls.length !== 4) {
     res.status(400).json({ error: 'invalid body' });
