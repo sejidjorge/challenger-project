@@ -1,5 +1,5 @@
-import Head from 'next/head'
-import Image from 'next/image'
+import Head from 'next/head';
+import Image from 'next/image';
 
 export default function Home() {
   return (
@@ -16,8 +16,7 @@ export default function Home() {
         </h1>
 
         <p>
-          Get started by editing{' '}
-          <code>pages/index.tsx</code>
+          Get started by editing <code>pages/index.tsx</code>
         </p>
 
         <div>
@@ -31,9 +30,7 @@ export default function Home() {
             <p>Learn about Next.js in an interactive course with quizzes!</p>
           </a>
 
-          <a
-            href="https://github.com/vercel/next.js/tree/canary/examples"
-          >
+          <a href="https://github.com/vercel/next.js/tree/canary/examples">
             <h2>Examples &rarr;</h2>
             <p>Discover and deploy boilerplate example Next.js projects.</p>
           </a>
@@ -64,5 +61,5 @@ export default function Home() {
         </a>
       </footer>
     </div>
-  )
+  );
 }
