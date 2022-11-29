@@ -3,7 +3,7 @@ import { InputProps } from '../../types/inputTypes';
 import { Container, InputContainer, InputLabel, InputStyled } from './styles';
 
 const Input = ({ label, value, setValue }: InputProps) => {
-  const [inputValue, setInputValue] = useState<number>(0);
+  const [inputValue, setInputValue] = useState<number>();
 
   function handleChange(value: number) {
     if (!isNaN(value)) {
@@ -12,7 +12,7 @@ const Input = ({ label, value, setValue }: InputProps) => {
   }
 
   useEffect(() => {
-    setValue(inputValue);
+    if (inputValue) setValue(inputValue);
   }, [inputValue]);
 
   return (

@@ -2,11 +2,15 @@ import Head from 'next/head';
 import { useState } from 'react';
 import { CardBody } from '../components/card';
 import { ContainerCards, ContainerContent } from '../components/container';
+import InputWall from '../components/inputWall';
 import { Title } from '../components/typograph';
 import { wall } from '../types/inputTypes';
 
 export default function Home() {
-  const [walls, setWalls] = useState<wall[]>();
+  const [wallOne, setWallOne] = useState<wall>({} as wall);
+  const [wallTwo, setWallTwo] = useState<wall>({} as wall);
+  const [wallThree, setWallThree] = useState<wall>({} as wall);
+  const [wallFour, setWallFour] = useState<wall>({} as wall);
   return (
     <div>
       <Head>
@@ -18,10 +22,18 @@ export default function Home() {
         <Title>Paint Calculator</Title>
 
         <ContainerCards>
-          <CardBody></CardBody>
-          <CardBody></CardBody>
-          <CardBody></CardBody>
-          <CardBody></CardBody>
+          <CardBody>
+            <InputWall wall={wallOne} setWall={setWallOne} />
+          </CardBody>
+          <CardBody>
+            <InputWall wall={wallTwo} setWall={setWallTwo} />
+          </CardBody>
+          <CardBody>
+            <InputWall wall={wallThree} setWall={setWallThree} />
+          </CardBody>
+          <CardBody>
+            <InputWall wall={wallFour} setWall={setWallFour} />
+          </CardBody>
         </ContainerCards>
       </ContainerContent>
     </div>
