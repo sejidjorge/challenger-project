@@ -1,21 +1,24 @@
 import Head from 'next/head';
 import { useState } from 'react';
 import { Button } from '../components/button';
-import { CardBody } from '../components/card';
+import { CardBody, CardLoad } from '../components/card';
 import {
   ContainerCards,
   ContainerContent,
   FormStyled,
 } from '../components/container';
 import InputWall from '../components/inputWall';
-import { Title } from '../components/typograph';
+import { LoadingCircle } from '../components/loading';
+import { Label, SubTitle, Title } from '../components/typograph';
 import { wall } from '../types/inputTypes';
 
 export default function Home() {
+  const [stage, setStage] = useState('RESULT');
   const [wallOne, setWallOne] = useState<wall>({} as wall);
   const [wallTwo, setWallTwo] = useState<wall>({} as wall);
   const [wallThree, setWallThree] = useState<wall>({} as wall);
   const [wallFour, setWallFour] = useState<wall>({} as wall);
+  const [result, setResult] = useState();
 
   const wallsConfig = [
     {
@@ -40,6 +43,52 @@ export default function Home() {
     },
   ];
 
+  function ViewStages() {
+    switch (stage) {
+      case 'INITIAL':
+        return (
+          <FormStyled>
+            <ContainerCards>
+              {wallsConfig.map(({ title, value, setValue }) => (
+                <CardBody key={title}>
+                  <InputWall title={title} wall={value} setWall={setValue} />
+                </CardBody>
+              ))}
+            </ContainerCards>
+            <Button>Submit</Button>
+          </FormStyled>
+        );
+      case 'LOAD':
+        return (
+          <CardLoad>
+            <LoadingCircle />
+          </CardLoad>
+        );
+
+      case 'RESULT':
+        // {
+        //   "majorPaintCanQuantity": 0,
+        //   "mediumPaintCanQuantity": 0,
+        //   "minorPaintCanQuantity": 1,
+        //   "smallPaintCanQuantity": 1
+        // }
+        return (
+          <>
+            <CardBody>
+              <SubTitle>Result</SubTitle>
+              {result?.majorPaintCanQuantity && (
+                <Label>
+                  {' '}
+                  <span>{result?.majorPaintCanQuantity}</span>
+                </Label>
+              )}
+            </CardBody>
+            <Button>Return</Button>
+          </>
+        );
+    }
+  }
+
   return (
     <div>
       <Head>
@@ -49,16 +98,7 @@ export default function Home() {
       </Head>
       <ContainerContent>
         <Title>Paint Calculator</Title>
-        <FormStyled>
-          <ContainerCards>
-            {wallsConfig.map(({ title, value, setValue }) => (
-              <CardBody key={title}>
-                <InputWall title={title} wall={value} setWall={setValue} />
-              </CardBody>
-            ))}
-          </ContainerCards>
-          <Button>Submit</Button>
-        </FormStyled>
+        {ViewStages()}
       </ContainerContent>
     </div>
   );
