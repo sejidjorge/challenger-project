@@ -1,11 +1,12 @@
 import Head from 'next/head';
 import { useState } from 'react';
-import { CardBody, TitleCard } from '../components/card';
-import { ContainerContent } from '../components/container';
-import Input from '../components/input';
+import { CardBody } from '../components/card';
+import { ContainerCards, ContainerContent } from '../components/container';
+import { Title } from '../components/typograph';
+import { wall } from '../types/inputTypes';
 
 export default function Home() {
-  const [testeInput, setTesteInput] = useState<number>();
+  const [walls, setWalls] = useState<wall[]>();
   return (
     <div>
       <Head>
@@ -14,10 +15,14 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <ContainerContent>
-        <CardBody>
-          <TitleCard>Paint Calculator</TitleCard>
-          <Input label="Teste" value={testeInput} setValue={setTesteInput} />
-        </CardBody>
+        <Title>Paint Calculator</Title>
+
+        <ContainerCards>
+          <CardBody></CardBody>
+          <CardBody></CardBody>
+          <CardBody></CardBody>
+          <CardBody></CardBody>
+        </ContainerCards>
       </ContainerContent>
     </div>
   );

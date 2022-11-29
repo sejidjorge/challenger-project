@@ -1,12 +1,19 @@
+import { useEffect, useState } from 'react';
 import { InputProps } from '../../types/inputTypes';
 import { Container, InputContainer, InputLabel, InputStyled } from './styles';
 
 const Input = ({ label, value, setValue }: InputProps) => {
+  const [inputValue, setInputValue] = useState<number>(0);
+
   function handleChange(value: number) {
     if (!isNaN(value)) {
-      setValue(value);
+      setInputValue(value);
     }
   }
+
+  useEffect(() => {
+    setValue(inputValue);
+  }, [inputValue]);
 
   return (
     <>
