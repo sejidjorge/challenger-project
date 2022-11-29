@@ -1,17 +1,17 @@
 import { SetStateAction } from 'react';
 
 export type wall = {
-  width: string;
-  height: string;
-  windows: string;
-  doors: string;
+  width: number;
+  height: number;
+  windows: number;
+  doors: number;
 };
 
 export interface InputProps {
   label: string;
-  value?: string;
+  value?: number;
   setValue: (
-    value: string
+    value: number
   ) => void | React.Dispatch<SetStateAction<wall | undefined>>;
 }
 
