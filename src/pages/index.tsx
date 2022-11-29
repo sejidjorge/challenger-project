@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import axios from 'axios';
 import Head from 'next/head';
 import { useState } from 'react';
@@ -67,7 +68,7 @@ export default function Home() {
       const { data } = await axios.post('/api/amount', body);
       setResult(data);
       setStage('RESULT');
-    } catch (error) {
+    } catch (error: any) {
       window.alert(error.message);
       Reset();
     }
