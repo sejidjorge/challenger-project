@@ -23,4 +23,5 @@ export default function amount(
       res.status(200).json(result);
     }
   });
+  return { props: {} };
 }
