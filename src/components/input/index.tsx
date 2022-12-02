@@ -19,7 +19,7 @@ const Input = ({ label, value, setValue }: InputProps) => {
             onChange={(e) => handleChange(e.target.value)}
             value={value}
           />
-          <InputLabel isEmpty={!value} htmlFor={label}>
+          <InputLabel isEmpty={!value && value !== 0} htmlFor={label}>
             {label}
           </InputLabel>
         </InputContainer>
