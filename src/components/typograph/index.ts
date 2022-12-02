@@ -23,3 +23,9 @@ export const Label = styled.p`
     font-weight: 400;
   }
 `;
+export const Error = styled.p`
+  font-size: 1rem;
+  font-family: 'Nunito';
+  font-weight: 500;
+  color: ${({ theme }) => theme.colors.error};
+`;
